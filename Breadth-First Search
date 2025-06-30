@@ -1,0 +1,44 @@
+import java.util.*;
+
+public class BFSExample {
+    // Function to perform BFS on the graph
+    public static void bfs(int start, Map<Integer, List<Integer>> graph) {
+        Set<Integer> visited = new HashSet<>();
+        Queue<Integer> queue = new LinkedList<>();
+
+        visited.add(start);
+        queue.offer(start);
+
+        System.out.print("BFS traversal starting from node " + start + ": ");
+
+        while (!queue.isEmpty()) {
+            int current = queue.poll();
+            System.out.print(current + " ");
+
+            List<Integer> neighbors = graph.getOrDefault(current, new ArrayList<>());
+            for (int neighbor : neighbors) {
+                if (!visited.contains(neighbor)) {
+                    visited.add(neighbor);
+                    queue.offer(neighbor);
+                }
+            }
+        }
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        // Create a sample graph (adjacency list)
+        Map<Integer, List<Integer>> graph = new HashMap<>();
+
+        // Add edges
+        graph.put(0, Arrays.asList(1, 2));
+        graph.put(1, Arrays.asList(0, 3, 4));
+        graph.put(2, Arrays.asList(0, 4));
+        graph.put(3, Arrays.asList(1, 5));
+        graph.put(4, Arrays.asList(1, 2, 5));
+        graph.put(5, Arrays.asList(3, 4));
+
+        // Call BFS starting from node 0
+        bfs(0, graph);
+    }
+}
