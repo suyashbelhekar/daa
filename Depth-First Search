@@ -1,0 +1,32 @@
+import java.util.*;
+
+public class DFSExample {
+    public static void dfs(int current, Set<Integer> visited, Map<Integer, List<Integer>> graph) {
+        visited.add(current);
+        System.out.print(current + " ");
+
+        List<Integer> neighbors = graph.getOrDefault(current, new ArrayList<>());
+        for (int neighbor : neighbors) {
+            if (!visited.contains(neighbor)) {
+                dfs(neighbor, visited, graph);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Create a sample graph (adjacency list)
+        Map<Integer, List<Integer>> graph = new HashMap<>();
+        graph.put(0, Arrays.asList(1, 2));
+        graph.put(1, Arrays.asList(0, 3, 4));
+        graph.put(2, Arrays.asList(0, 4));
+        graph.put(3, Arrays.asList(1, 5));
+        graph.put(4, Arrays.asList(1, 2, 5));
+        graph.put(5, Arrays.asList(3, 4));
+
+      
+        Set<Integer> visited = new HashSet<>();
+
+        System.out.print("DFS traversal starting from node 0: ");
+        dfs(0, visited, graph);
+    }
+}
